@@ -502,6 +502,14 @@
 
 // TRINKETS/ITEMS - Purple Border
 
+/obj/trait/trinketless
+	name = "Trinketless (0) \[Trinkets\]"
+	cleanName = "Trinketless"
+	desc = "Spawn with no trinket"
+	id = "trinketless"
+	icon_state = "trinketless"
+	points = 0
+	category = list("trinkets")
 /obj/trait/loyalist
 	name = "NT loyalist (-1) \[Trinkets\]"
 	cleanName = "NT loyalist"

@@ -619,7 +619,7 @@
 	var/T = pick(trinket_safelist)
 	var/obj/item/trinket = null
 
-	if (src.traitHolder && src.traitHolder.hasTrait("pawnstar"))
+	if (src.traitHolder && src.traitHolder.hasTrait("pawnstar") || src.traitHolder.hasTrait("trinketless"))
 		trinket = null //You better stay null, you hear me!
 	else if (src.traitHolder && src.traitHolder.hasTrait("bald"))
 		trinket = src.create_wig()
