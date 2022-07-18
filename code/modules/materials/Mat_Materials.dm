@@ -154,6 +154,8 @@ ABSTRACT_TYPE(/datum/material)
 	var/list/triggersExp = list()
 	/// Called when the material is added to an object
 	var/list/triggersOnAdd = list()
+	/// Called when the material is removed from an object
+	var/list/triggersOnRemove = list()
 	/// Called when the life proc of a mob that has the owning item equipped runs.
 	var/list/triggersOnLife = list()
 	/// Called when the owning object is used to attack something or someone.
@@ -199,6 +201,11 @@ ABSTRACT_TYPE(/datum/material)
 		return
 
 	proc/triggerOnAdd(var/location)
+		for(var/datum/materialProc/X in triggersOnAdd)
+			call(X,  "execute")(location)
+		return
+
+	proc/triggerOnRemove(var/location)
 		for(var/datum/materialProc/X in triggersOnAdd)
 			call(X,  "execute")(location)
 		return
@@ -1495,3 +1502,26 @@ ABSTRACT_TYPE(/datum/material/rubber)
 		setProperty("electrical", 1)
 		setProperty("thermal", 3)
 		setProperty("flammable", 3)
+
+/datum/material/metal/plutonium
+	mat_id = "plutonium"
+	name = "plutonium 239"
+	canMix = 1 //Can not be easily modified.
+	desc = "Weapons grade refined plutonium."
+	color = "#230e4d"
+	quality = 60
+
+	New()
+		..()
+		material_flags |= MATERIAL_CRYSTAL
+		setProperty("density", 8)
+		setProperty("hard", 7)
+		setProperty("n_radioactive", 5)
+		setProperty("radioactive", 3)
+		setProperty("electrical", 7)
+
+
+
+
+
+

@@ -1026,7 +1026,7 @@ datum
 
 			on_mob_life(var/mob/M, var/mult = 1)
 				if (!M) M = holder.my_atom
-				M.changeStatus("radiation", 5 SECONDS * mult, 4)
+				M.take_radiation_dose(0.1 * mult, internal=TRUE)
 				..()
 				return
 
@@ -1404,7 +1404,7 @@ datum
 
 			on_mob_life(var/mob/M, var/mult = 1)
 				if (!M) M = holder.my_atom
-				M.changeStatus("radiation", 3 SECONDS * mult, 1)
+				M.take_radiation_dose(0.02 * mult, internal=TRUE)
 				var/mutChance = 4
 				if (M.traitHolder && M.traitHolder.hasTrait("stablegenes")) mutChance = 2
 				if (probmult(mutChance))
@@ -1440,7 +1440,7 @@ datum
 
 			on_mob_life(var/mob/M, var/mult = 1)
 				if (!M) M = holder.my_atom
-				M.changeStatus("radiation", 2 SECONDS * mult)
+				M.take_radiation_dose( 0.05 * mult, internal=TRUE)
 				// DNA buckshot
 				var/mutChance = 15
 				if (M.traitHolder && M.traitHolder.hasTrait("stablegenes")) mutChance = 7
@@ -1711,7 +1711,6 @@ datum
 
 			on_mob_life(var/mob/M, var/mult = 1)
 				if (!M) M = holder.my_atom
-				//M.changeStatus("radiation", 30, 1)
 				if (!src.data) // Pull bioholder data from blood that's in the same reagentholder
 					for (var/bloodtype in holder.reagent_list)
 						var/datum/reagent/blood = holder.reagent_list[bloodtype]
