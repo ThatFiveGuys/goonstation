@@ -21,6 +21,8 @@
 
 	New()
 		. = ..()
+		APPLY_MOVEMENT_MODIFIER(src, /datum/movement_modifier/staggered_or_blocking, "gunbot_slowdown")
+		APPLY_MOVEMENT_MODIFIER(src, /datum/movement_modifier/robot_base/slow, "robot_health_slow_immunity")
 		APPLY_ATOM_PROPERTY(src, PROP_MOB_THERMALVISION, src)
 		var/image/eye_light = image(icon, "[eye_light_icon]")
 		eye_light.plane = PLANE_SELFILLUM
@@ -67,8 +69,8 @@
 		HH.can_range_attack = 1
 
 		HH = hands[2]
-		HH.limb = new /datum/limb/gun/abg
-		HH.name = "ABG Riot Suppression Appendage"
+		HH.limb = new /datum/limb/gun/abg(HandHeld = HH)
+		HH.name = "ABG Riot Dampening Appendage"
 		HH.icon = 'icons/mob/critter_ui.dmi'
 		HH.icon_state = "handabg"
 		HH.limb_name = "ABG Riot Suppression Appendage"
@@ -87,8 +89,9 @@
 		add_hh_robot(75, 1)
 		add_hh_robot_burn(50, 1)
 
+
 	get_melee_protection(zone, damage_type)
-		return 6
+		return 4
 
 	get_ranged_protection()
 		return 2
@@ -149,7 +152,7 @@
 	setup_hands()
 		..()
 		var/datum/handHolder/HH = hands[1]
-		HH.limb = new /datum/limb/gun/rifle
+		HH.limb = new /datum/limb/gun/rifle(HH)
 		HH.name = "5.56 Rifle Arm"
 		HH.icon = 'icons/mob/critter_ui.dmi'
 		HH.icon_state = "handrifle"
@@ -164,6 +167,7 @@
 	setup_healths()
 		add_hh_robot(100, 1)
 		add_hh_robot_burn(100, 1)
+
 
 	get_melee_protection(zone, damage_type)
 		return 7

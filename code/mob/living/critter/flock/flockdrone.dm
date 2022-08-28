@@ -441,7 +441,7 @@
 	HH.can_hold_items = FALSE
 
 	HH = hands[3]
-	HH.limb = new /datum/limb/gun/flock_stunner
+	HH.limb = new /datum/limb/gun/flock_stunner(HH)
 	HH.name = "incapacitor"
 	HH.icon = 'icons/mob/flock_ui.dmi'
 	HH.icon_state = "incapacitor"

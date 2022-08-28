@@ -7,15 +7,17 @@
 
 /datum/limb
 	var/obj/item/parts/holder = null
+	var/datum/handHolder/HandHold = null // used currently just for gun limbs, moving it down here for convinence
 
 	var/special_next = 0
 	var/datum/item_special/disarm_special = null //Contains the datum which executes the items special, if it has one, when used beyond melee range.
 	var/datum/item_special/harm_special = null //Contains the datum which executes the items special, if it has one, when used beyond melee range.
 	var/can_pickup_item = TRUE
 
-	New(var/obj/item/parts/holder)
+	New(var/obj/item/parts/holder, var/datum/handHolder/HandHeld)
 		..()
 		src.holder = holder
+		src.HandHold = HandHeld
 
 		src.setDisarmSpecial (/datum/item_special/disarm)
 		src.setHarmSpecial (/datum/item_special/harm)
@@ -204,7 +206,17 @@
 	var/current_shots = 0
 	var/reloading_str = "reloading"
 	var/image/default_obscurer
+	var/image/bullet_text
 	var/muzzle_flash = null
+	var/inventory_counter_enabled = 1
+	var/obj/overlay/inventory_counter/inventory_counter = null
+
+	New()
+		..()
+		src.inventory_counter = new /obj/overlay/inventory_counter // hack shit to not have to repeat inventory counter code
+		src.inventory_counter.update_number(shots)
+		bullet_text = inventory_counter
+	//	src.HandHold.screenObj.overlays += bullet_text
 
 	attack_range(atom/target, var/mob/user, params)
 		src.shoot(target, user, FALSE, params)
@@ -223,6 +235,8 @@
 			if (ON_COOLDOWN(user, "\ref[src] shoot", src.cooldown))
 				return
 			current_shots--
+			src.inventory_counter.update_number(current_shots)
+			bullet_text = inventory_counter
 			if (pointblank)
 				src.shoot_pointblank(target, user)
 			else
@@ -272,19 +286,19 @@
 		return GET_COOLDOWN(user, "\ref[src] reload")
 
 	arm38
-		proj = new/datum/projectile/bullet/revolver_38
-		shots = 3
-		current_shots = 3
-		cooldown = 30
-		reload_time = 200
+		proj = new/datum/projectile/bullet/revolver_38/AP
+		shots = 8
+		current_shots = 8
+		cooldown = 0.1
+		reload_time = 5 SECONDS
 		muzzle_flash = "muzzle_flash"
 
 	abg
-		proj = new/datum/projectile/bullet/abg
-		shots = 6
-		current_shots = 6
-		cooldown = 30
-		reload_time = 300
+		proj = new/datum/projectile/bullet/a12/weaker
+		shots = 4
+		current_shots = 4
+		cooldown = 6
+		reload_time = 10 SECONDS
 		muzzle_flash = "muzzle_flash"
 
 	phaser

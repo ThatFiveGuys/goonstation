@@ -578,6 +578,9 @@ toxic - poisons
 	weak
 		power = 50 //can have a little throwing, as a treat
 
+	weaker // for gunborg, gotta get very close for this thing to be strong
+		power = 40
+
 /datum/projectile/bullet/flak_chunk
 	name = "flak chunk"
 	sname = "flak chunk"
@@ -706,6 +709,7 @@ toxic - poisons
 			//if (src.hit_type)
 			// impact_image_effect("K", hit)
 				//take_bleeding_damage(hit, null, round(src.power / 3), src.hit_type)
+
 
 /datum/projectile/bullet/cryo
 	name = "cryogenic slug"
