@@ -59,7 +59,7 @@
 	setup_hands()
 		..()
 		var/datum/handHolder/HH = hands[1]
-		HH.limb = new /datum/limb/gun/arm38
+		HH.limb = new /datum/limb/gun/arm38(limb_holder_temp = HH)
 		HH.name = ".38 Anti-Personnel Arm"
 		HH.icon = 'icons/mob/critter_ui.dmi'
 		HH.icon_state = "hand38"
@@ -69,7 +69,7 @@
 		HH.can_range_attack = 1
 
 		HH = hands[2]
-		HH.limb = new /datum/limb/gun/abg(HandHeld = HH)
+		HH.limb = new /datum/limb/gun/abg(limb_holder_temp = HH)
 		HH.name = "ABG Riot Dampening Appendage"
 		HH.icon = 'icons/mob/critter_ui.dmi'
 		HH.icon_state = "handabg"
@@ -152,7 +152,7 @@
 	setup_hands()
 		..()
 		var/datum/handHolder/HH = hands[1]
-		HH.limb = new /datum/limb/gun/rifle(HH)
+		HH.limb = new /datum/limb/gun/rifle(limb_holder_temp = HH)
 		HH.name = "5.56 Rifle Arm"
 		HH.icon = 'icons/mob/critter_ui.dmi'
 		HH.icon_state = "handrifle"

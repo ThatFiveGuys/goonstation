@@ -7,17 +7,17 @@
 
 /datum/limb
 	var/obj/item/parts/holder = null
-	var/datum/handHolder/HandHold = null // used currently just for gun limbs, moving it down here for convinence
+	var/datum/handHolder/limb_holder = null // used currently just for gun limbs, moving it down here for convinence
 
 	var/special_next = 0
 	var/datum/item_special/disarm_special = null //Contains the datum which executes the items special, if it has one, when used beyond melee range.
 	var/datum/item_special/harm_special = null //Contains the datum which executes the items special, if it has one, when used beyond melee range.
 	var/can_pickup_item = TRUE
 
-	New(var/obj/item/parts/holder, var/datum/handHolder/HandHeld)
+	New(var/obj/item/parts/holder, var/datum/handHolder/limb_holder_temp2)
 		..()
 		src.holder = holder
-		src.HandHold = HandHeld
+		src.limb_holder = limb_holder_temp2
 
 		src.setDisarmSpecial (/datum/item_special/disarm)
 		src.setHarmSpecial (/datum/item_special/harm)
@@ -211,12 +211,12 @@
 	var/inventory_counter_enabled = 1
 	var/obj/overlay/inventory_counter/inventory_counter = null
 
-	New()
-		..()
+	New(var/datum/handHolder/limb_holder_temp)
+		..(limb_holder_temp2 = limb_holder_temp)
 		src.inventory_counter = new /obj/overlay/inventory_counter // hack shit to not have to repeat inventory counter code
 		src.inventory_counter.update_number(shots)
 		bullet_text = inventory_counter
-	//	src.HandHold.screenObj.overlays += bullet_text
+		src.limb_holder.screenObj.overlays = bullet_text
 
 	attack_range(atom/target, var/mob/user, params)
 		src.shoot(target, user, FALSE, params)

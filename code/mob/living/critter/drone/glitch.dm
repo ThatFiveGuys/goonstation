@@ -8,7 +8,7 @@
 	setup_hands()
 		..()
 		var/datum/handHolder/HH = hands[1]
-		HH.limb = new /datum/limb/gun/glitch(HH)
+		HH.limb = new /datum/limb/gun/glitch(limb_holder_temp = HH)
 		HH.name = "C&z !!!!!!ERROR!!!!!!!--~$!'S"
 		HH.icon = 'icons/mob/critter_ui.dmi'
 		HH.icon_state = "handglitch"

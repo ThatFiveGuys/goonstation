@@ -7,7 +7,7 @@
 	setup_hands()
 		..()
 		var/datum/handHolder/HH = hands[1]
-		HH.limb = new /datum/limb/gun/artillery(HH)
+		HH.limb = new /datum/limb/gun/artillery(limb_holder_temp = HH)
 		HH.name = "S-42 Long Range Explosive Shells"
 		HH.icon = 'icons/mob/critter_ui.dmi'
 		HH.icon_state = "handart"
