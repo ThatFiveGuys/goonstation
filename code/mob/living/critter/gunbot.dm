@@ -21,9 +21,9 @@
 
 	New()
 		. = ..()
-		APPLY_MOVEMENT_MODIFIER(src, /datum/movement_modifier/staggered_or_blocking, "gunbot_slowdown")
 		APPLY_MOVEMENT_MODIFIER(src, /datum/movement_modifier/robot_base/slow, "robot_health_slow_immunity")
 		APPLY_ATOM_PROPERTY(src, PROP_MOB_THERMALVISION, src)
+		APPLY_ATOM_PROPERTY(src, PROP_MOB_CANTSPRINT, src)
 		var/image/eye_light = image(icon, "[eye_light_icon]")
 		eye_light.plane = PLANE_SELFILLUM
 		src.UpdateOverlays(eye_light, "eye_light")
@@ -60,10 +60,10 @@
 		..()
 		var/datum/handHolder/HH = hands[1]
 		HH.limb = new /datum/limb/gun/arm38(limb_holder_temp = HH)
-		HH.name = ".38 Anti-Personnel Arm"
+		HH.name = ".38 Anti-Personnel AP Arm"
 		HH.icon = 'icons/mob/critter_ui.dmi'
 		HH.icon_state = "hand38"
-		HH.limb_name = ".38 Anti-Personnel Arm"
+		HH.limb_name = ".38 Anti-Personnel AP Arm"
 		HH.can_hold_items = 0
 		HH.can_attack = 1
 		HH.can_range_attack = 1

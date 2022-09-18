@@ -216,7 +216,8 @@
 		src.inventory_counter = new /obj/overlay/inventory_counter // hack shit to not have to repeat inventory counter code
 		src.inventory_counter.update_number(shots)
 		bullet_text = inventory_counter
-		src.limb_holder.screenObj.overlays = bullet_text
+		SPAWN(0) // Just to wait for screenobj to actually set itself up, it just works dont question the byond gods
+			src.limb_holder.screenObj.overlays += bullet_text
 
 	attack_range(atom/target, var/mob/user, params)
 		src.shoot(target, user, FALSE, params)
@@ -235,14 +236,20 @@
 			if (ON_COOLDOWN(user, "\ref[src] shoot", src.cooldown))
 				return
 			current_shots--
+			src.limb_holder.screenObj.overlays -= bullet_text
 			src.inventory_counter.update_number(current_shots)
 			bullet_text = inventory_counter
+			src.limb_holder.screenObj.overlays += bullet_text // This line and the lines before it are needed for this code to work dont @me
 			if (pointblank)
 				src.shoot_pointblank(target, user)
 			else
 				src.shoot_range(target, user, params)
 		if (current_shots <= 0)
 			ON_COOLDOWN(user, "\ref[src] reload", src.reload_time)
+			src.limb_holder.screenObj.overlays -= bullet_text // This is so when it finishes reloading it doesn't show 0 bullets
+			src.inventory_counter.update_number(shots)
+			bullet_text = inventory_counter
+			src.limb_holder.screenObj.overlays += bullet_text
 
 	proc/shoot_range(atom/target, var/mob/user, params)
 		var/pox = text2num(params["icon-x"]) - 16
@@ -289,16 +296,16 @@
 		proj = new/datum/projectile/bullet/revolver_38/AP
 		shots = 8
 		current_shots = 8
-		cooldown = 0.1
-		reload_time = 5 SECONDS
+		cooldown = 0.1 SECONDS
+		reload_time = 10 SECONDS
 		muzzle_flash = "muzzle_flash"
 
 	abg
 		proj = new/datum/projectile/bullet/a12/weaker
 		shots = 4
 		current_shots = 4
-		cooldown = 6
-		reload_time = 10 SECONDS
+		cooldown = 3 SECONDS
+		reload_time = 15 SECONDS
 		muzzle_flash = "muzzle_flash"
 
 	phaser
